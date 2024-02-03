@@ -6,6 +6,13 @@ __pycache__/
 # C extensions
 *.so
 
+# raw data
+data/embedded_data_1.pkl
+data/embedded_data_2.pkl
+data/embedded_data_3.pkl
+data/gazeta_train.jsonl
+data/embedded_data.pkl
+
 # Distribution / packaging
 .Python
 build/
