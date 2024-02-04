@@ -7,9 +7,7 @@ def config_project(
         column_with_embed: str,
         column_with_text: str,
         path_to_data: str,
-        pkl_embeds_1: str | None = None,
-        pkl_embeds_2: str | None = None,
-        pkl_embeds_3: str | None = None,
+        paths_to_pkl: list[str],
         pre_embeds: bool = True,
         ) -> tuple[
             utils.faiss.IndexFlatL2,
@@ -21,7 +19,7 @@ def config_project(
     embedder_model = embedder.load_model(embedder_name)
     if pre_embeds:
         df = embedder.load_emdedds_from_file(
-            utils.read_from_pkl, pkl_embeds_1, pkl_embeds_2, pkl_embeds_3
+            utils.read_from_pkl, paths_to_pkl
             )
     else:
         df = utils.prepare_df(path_to_data)
@@ -42,7 +40,5 @@ index_l2, index_IP, embedder_model, df = config_project(
     settings.COLUMN_WITH_EMB,
     settings.COLUMN_WITH_TEXT,
     settings.PATH_TO_DATA,
-    settings.PKL_1_EMBEDS,
-    settings.PKL_2_EMBEDS,
-    settings.PKL_3_EMBEDS,
+    settings.PATHS_TO_PKL,
     )

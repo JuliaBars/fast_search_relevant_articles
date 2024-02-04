@@ -33,7 +33,7 @@ if __name__ == '__main__':
             result = utils.top_articles(
                 index, query, embedder_model, df, n_articles
                 )
-            st.write('Результат:', result)
+            st.write('Похожие статьи:', result)
     except Exception as err:
         utils.logger.error('Произошла ошибка: ', err)
         sys.exit(0)

@@ -62,11 +62,9 @@ class Embedding:
 
     def load_emdedds_from_file(
             self, func: Callable,
-            path_to_file_1: str | None,
-            path_to_file_2: str | None,
-            path_to_file_3: str | None,
+            paths_to_files: list[str],
             ) -> pd.DataFrame:
-        return func(path_to_file_1, path_to_file_2, path_to_file_3)
+        return func(paths_to_files)
 
 
 class SearchVectors:
@@ -94,15 +92,14 @@ def save_to_pkl(df: pd.DataFrame, path_to_save: str) -> None:
         logger.error('Не удалось сохранить файл: ', err)
 
 
-def read_from_pkl(
-        path_1: str, path_2: str, path_3: str
-        ) -> pd.DataFrame | None:
+def read_from_pkl(paths_to_files: list[str]) -> pd.DataFrame | None:
     try:
-        df1 = pd.read_pickle(path_1)
-        df2 = pd.read_pickle(path_2)
-        df3 = pd.read_pickle(path_3)
+        df = pd.DataFrame()
+        for path in paths_to_files:
+            df1 = pd.read_pickle(path)
+            df = pd.concat([df, df1], axis=0)
         logger.info('Создан DataFrame из файла pkl')
-        return pd.concat([df1, df2, df3], axis=0)
+        return df
     except Exception as err:
         logger.error('Загрузка датасета из pkl не удалась: ', err)
 
@@ -132,4 +129,9 @@ def top_articles(
         logger.error('Поиск по индексам не завершен: ', err)
         sys.exit(0)
     result = df.iloc[idx[0]][['summary', 'url']].reset_index(drop=True)
+    result.index = pd.RangeIndex(start=1, stop=len(result) + 1)
+    result.rename(
+        columns={'summary': 'Краткое содержание', 'url': 'Ссылка'},
+        inplace=True
+        )
     return result
