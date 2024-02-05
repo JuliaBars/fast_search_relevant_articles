@@ -1,11 +1,11 @@
-from typing import Callable
-import pandas as pd
-from sentence_transformers import SentenceTransformer
-import numpy as np
-import faiss
 import sys
-from typing import Any
+from typing import Any, Callable
+
+import faiss
+import numpy as np
+import pandas as pd
 from loguru import logger
+from sentence_transformers import SentenceTransformer
 
 
 def config_logger(logger):

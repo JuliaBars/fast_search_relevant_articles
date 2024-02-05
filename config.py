@@ -1,5 +1,5 @@
-import utils
 import settings
+import utils
 
 
 def config_project(

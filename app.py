@@ -1,9 +1,10 @@
-import utils
 import sys
-from config import index_l2, index_IP, embedder_model, df
-import streamlit as st
-import settings
 
+import streamlit as st
+
+import settings
+import utils
+from config import df, embedder_model, index_IP, index_l2
 
 st.set_page_config(
     page_title="Поиск статей Gazeta.ru похожих на ваш запрос",
